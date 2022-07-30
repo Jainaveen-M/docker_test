@@ -36,5 +36,3 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: jainaveen/flutter_env:latest
-          cache-from: type=registry,ref=jainaveen/flutter_env:buildcache
-          cache-to: type=registry,ref=jainaveen/flutter_env:buildcache,mode=max
