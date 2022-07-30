@@ -8,7 +8,7 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
   REPO_NAME: 'flutter_env'
 jobs:
-  push-image-to-docker-hub:  # job name
+  push-image-to-docker-hub:
     runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
     steps:
     - uses: actions/checkout@v2 # first action : checkout source code
