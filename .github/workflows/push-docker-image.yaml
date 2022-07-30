@@ -29,7 +29,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
       - 
         name: Build the Docker image # push The image to the docker hub
-        run: docker build . -t  jainaveen/flutter_env:${{ steps.date.outputs.date }} -f Dockerfile
+        run: docker build  -t  jainaveen/flutter_env:${{ steps.date.outputs.date }} -f Dockerfile .
       - 
         name: Docker Push
         run: docker push jainaveen/flutter_env:${{ steps.date.outputs.date }}
