@@ -27,9 +27,14 @@ jobs:
         name: Get current date # get the date of the build
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
-      - 
-        name: Build the Docker image # push The image to the docker hub
-        run: docker build . --file Dockerfile --tag jainaveen/flutter_env:${{ steps.date.outputs.date }}
-      - 
-        name: Docker Push
-        run: docker push jainaveen/flutter_env:${{ steps.date.outputs.date }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: jainaveen/flutter_env:latest
+          cache-from: type=registry,ref=jainaveen/flutter_env:buildcache
+          cache-to: type=registry,ref=jainaveen/flutter_env:buildcache,mode=max
