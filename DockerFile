@@ -5,7 +5,9 @@ RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|
     chmod 777 opt
 RUN yum -y install git &&\
     yum -y install curl &&\
-    yum -y install unzip
+    yum -y install unzip 
+RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash - &&\
+    yum install nodejs
 RUN git clone https://github.com/flutter/flutter.git -b 2.10.5
 ENV PATH="/flutter/bin:$PATH"
 RUN flutter precache
