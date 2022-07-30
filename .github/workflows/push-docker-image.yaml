@@ -4,8 +4,8 @@ on:
     branches:
       - 'main'
 env:
-  DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
-  DOCKER_PASSWORD: ${{secrets.DOCKERHUB_TOKEN}}
+  DOCKER_USER: ${{secrets.DOCKER_HUB_USERNAME}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_HUB_TOKEN}}
   REPO_NAME: 'flutter_env'
 jobs:
   push-image-to-docker-hub:  # job name
