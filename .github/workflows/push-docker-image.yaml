@@ -7,18 +7,14 @@ jobs:
   push-image-to-docker-hub:  # job name
     runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
     steps:
-      -
-        name: Checkout 
-        uses: actions/checkout@v2
-        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/flutter_env:${{ github.run_number }}
+    - uses: actions/checkout@v2 # first action : checkout source code
+    - name: docker login
+      run: | # log into docker hub account
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
+    - name: Get current date # get the date of the build
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
+    - name: Build the Docker image # push The image to the docker hub
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/flutter_env:${{ steps.date.outputs.date }}
+    - name: Docker Push
+      run: docker push $DOCKER_USER/flutter_env:${{ steps.date.outputs.date }}
